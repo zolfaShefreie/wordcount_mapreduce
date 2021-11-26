@@ -1,11 +1,15 @@
 import sys
 import re
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
 
 
 class TextCleaner:
+    
     punc = '''!()-[]{.};:'"\,<>/?@#$%^&*_~'''
     
-    def run(text: str) -> list:
+    @classmethod
+    def run(cls, text: str) -> list:
         """
             run textCleaner for input string
         Args:
@@ -14,15 +18,28 @@ class TextCleaner:
         Returns:
             list: token list
         """
-        pass
+        return cls.tokenize(cls.normlize(text))
     
-    def tokenize(text: str) -> list:
-        pass
+    @classmethod
+    def tokenize(cls, text: str) -> list:
+        """
+            tokenize, delete eng stopwords
+        Args:
+            text (str): input string
+
+        Returns:
+            list: tokens
+        """
+        
+        stop_words = set(stopwords.words("english"))
+        tokens = word_tokenize(input_str)
+        return [token for token in tokens if token not in stop_words]
+            
     
     @classmethod
     def normlize(cls, text: str) -> str:
         """
-
+            lower, delete numbers, delete punc, strip
         Args:
             text (str): input string
 
@@ -38,10 +55,6 @@ class TextCleaner:
         text.strip()
         
         return text
-        
-    
-    def remove_stopwords(tokens: list) -> list:
-        pass
 
 
 if __name__ == "__main__":
