@@ -7,6 +7,7 @@ from nltk.corpus import stopwords
 class TextCleaner:
     
     punc = '''!()-[]{.};:'"\,<>/?@#$%^&*_~'''
+    removed_plus = ['u', ]
     
     @classmethod
     def run(cls, text: str) -> list:
@@ -31,7 +32,7 @@ class TextCleaner:
             list: tokens
         """
         
-        stop_words = set(stopwords.words("english"))
+        stop_words = list(stopwords.words("english")) + cls.removed_plus
         tokens = word_tokenize(text)
         return [token for token in tokens if token not in stop_words]
             
@@ -50,7 +51,7 @@ class TextCleaner:
         text = re.sub(r"\d+", '', text)
         
         for each in cls.punc:
-            text = text.replace(each, "")
+            text = text.replace(each, " ")
         
         text.strip()
         
