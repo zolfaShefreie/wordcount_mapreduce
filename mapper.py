@@ -32,7 +32,7 @@ class TextCleaner:
         """
         
         stop_words = set(stopwords.words("english"))
-        tokens = word_tokenize(input_str)
+        tokens = word_tokenize(text)
         return [token for token in tokens if token not in stop_words]
             
     
@@ -58,8 +58,13 @@ class TextCleaner:
 
 
 if __name__ == "__main__":
+    """
+    mapper
+    """
+    
+    text_cleaner = TextCleaner()
+    
     for line in sys.stdin:
-        line = line.strip()
-        words = line.split()
+        words = text_cleaner.run(line)
         for word in words:
             print('%s\t%s' % (word, 1))
