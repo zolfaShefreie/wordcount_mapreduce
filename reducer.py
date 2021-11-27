@@ -16,6 +16,8 @@ if __name__ == "__main__":
             continue
         
         word_dict[word] = word_dict.get(word, 0) + count
+    
+    word_dict = dict(sorted(word_dict.items(), key=lambda item: item[1], reverse=True))
 
     for word in word_dict:
         print('%s\t%s' % (word, word_dict[word]))

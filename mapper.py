@@ -4,13 +4,16 @@ import re
 import os
 
 
+PATH = '/home/hadoop/hadoop/bin/wordcount_mapreduce/'
+
+
 def get_stopwords():
     """read stopwords from file
 
     Returns:
         [type]: [description]
     """
-    path = '/home/hadoop/hadoop/bin/wordcount_mapreduce/stopwords'
+    path = PATH + 'stopwords'
     #print(path)
     f = open(path, encoding='utf-8')
     words = f.read()
@@ -19,7 +22,7 @@ def get_stopwords():
 
 class TextCleaner:
     
-    punc = '''!()-[]{.};:'"\,<>/?@#$%^&*_~`|’'''
+    punc = '''!()-[]{.};:'"\,<>/?@#$%^&*_~`|’“”…—'''
     removed_plus = ['u', ] + list(get_stopwords())
     
     @classmethod
