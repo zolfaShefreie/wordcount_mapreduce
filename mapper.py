@@ -22,7 +22,7 @@ def get_stopwords():
 
 class TextCleaner:
     
-    punc = '''!()-[]{.};:'"\,<>/?@#$%^&*_~`|’“”…—'''
+    punc = '''!()-[]{.};:'"\,<>/?@#$%^&*_~`|’“”…—–'''
     removed_plus = ['u', ] + list(get_stopwords())
     
     @classmethod
