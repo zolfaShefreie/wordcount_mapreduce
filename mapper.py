@@ -1,13 +1,26 @@
+#!/usr/bin/env python
 import sys
 import re
-from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords
+import os
+
+
+def get_stopwords():
+    """read stopwords from file
+
+    Returns:
+        [type]: [description]
+    """
+    path = '/home/hadoop/hadoop/bin/wordcount_mapreduce/stopwords'
+    #print(path)
+    f = open(path, encoding='utf-8')
+    words = f.read()
+    return set([w for w in words.split('\n') if w])
 
 
 class TextCleaner:
     
-    punc = '''!()-[]{.};:'"\,<>/?@#$%^&*_~'''
-    removed_plus = ['u', ]
+    punc = '''!()-[]{.};:'"\,<>/?@#$%^&*_~`|’'''
+    removed_plus = ['u', ] + list(get_stopwords())
     
     @classmethod
     def run(cls, text: str) -> list:
@@ -32,9 +45,11 @@ class TextCleaner:
             list: tokens
         """
         
-        stop_words = list(stopwords.words("english")) + cls.removed_plus
-        tokens = word_tokenize(text)
-        return [token for token in tokens if token not in stop_words]
+        #stop_words = list(stopwords.words("english")) + cls.removed_plus
+        #tokens = word_tokenize(text)
+        stop_words = cls.removed_plus
+        tokens = text.split()
+        return [token.strip() for token in tokens if token.strip() and token.strip() not in stop_words]
             
     
     @classmethod
